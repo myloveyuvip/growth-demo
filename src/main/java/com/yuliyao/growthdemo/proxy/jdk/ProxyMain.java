@@ -1,5 +1,10 @@
 package com.yuliyao.growthdemo.proxy.jdk;
 
+import sun.misc.ProxyGenerator;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Proxy;
 
 /**
@@ -14,6 +19,17 @@ public class ProxyMain {
         IPerson zhangsanProxy = (IPerson) Proxy.newProxyInstance(zhangsan.getClass().getClassLoader(), zhangsan.getClass()
                 .getInterfaces(), matchMaker);
         zhangsanProxy.findLove();
+
+        //把代理类输出到文件中，查看代理类
+        byte[] bytes = ProxyGenerator.generateProxyClass("$Proxy0", new Class[]{IPerson.class});
+        try (FileOutputStream fos = new FileOutputStream("$Proxy0.class")){
+            fos.write(bytes);
+            fos.flush();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }
