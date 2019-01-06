@@ -9,6 +9,9 @@ public class ProxyMain {
     public static void main(String[] args) {
         Zhangsan zhangsan = new Zhangsan();
         MatchMaker matchMaker = new MatchMaker(zhangsan);
-        LYProxy.newProxyInstance(zhangsan.getClass().getInterfaces(), matchMaker);
+        IPerson zsProxy = (IPerson) LYProxy.newProxyInstance(new LYClassLoader(), zhangsan.getClass().getInterfaces(),
+                matchMaker);
+        zsProxy.findLove();
+
     }
 }

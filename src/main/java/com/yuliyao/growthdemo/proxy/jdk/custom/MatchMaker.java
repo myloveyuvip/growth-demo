@@ -16,10 +16,12 @@ public class MatchMaker implements LYInvocationHandler{
     }
 
     @Override
-    public Object invoke(Method method, Object target, Object... args) {
+    public Object invoke(Method method, Object target1, Object... args) {
         Object result = null;
         try {
+            System.out.println("我是媒婆，事前我负责给你匹配合适人选！");
             result = method.invoke(target, args);
+            System.out.println("事后我给你安排流程！");
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {

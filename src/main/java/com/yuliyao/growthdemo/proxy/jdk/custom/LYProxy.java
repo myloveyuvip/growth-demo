@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
@@ -27,9 +29,10 @@ public class LYProxy {
      *
      * @return
      */
-    public static Object newProxyInstance(Class[] interfaces, LYInvocationHandler invocationHandler) {
+    public static Object newProxyInstance(LYClassLoader lyClassLoader, Class[] interfaces, LYInvocationHandler
+            invocationHandler) {
         //1.生成代理类源码
-        String srcCode = generateSrcCode(interfaces, invocationHandler);
+        String srcCode = generateSrcCode(interfaces);
         System.out.println(srcCode);
         //2.将源码存储在磁盘中
         try {
@@ -46,11 +49,28 @@ public class LYProxy {
             JavaCompiler.CompilationTask task = compiler.getTask(null, manager, null, null, null, javaFileObjects);
             task.call();
 
-            //4.删除磁盘中的类
+            //4.将class文件加载到jvm中
+            String className = "$Proxy0";
+            Class<?> aClass = lyClassLoader.findClass(className);
+            Constructor<?> constructor = aClass.getConstructor(LYInvocationHandler.class);
+            Object o = constructor.newInstance(invocationHandler);
+            //5.删除磁盘中的类
+            new File(fileName).delete();
+            return o;
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
         return null;
@@ -60,7 +80,7 @@ public class LYProxy {
     /**
      * 生成代码类源码
      */
-    private static String generateSrcCode(Class[] interfaces, LYInvocationHandler invocationHandler) {
+    private static String generateSrcCode(Class[] interfaces) {
         StringBuffer stringBuffer = new StringBuffer("package com.yuliyao.growthdemo.proxy.jdk.custom;").append(LS);
         stringBuffer.append("import java.lang.reflect.Method;").append(LS);
         stringBuffer.append("public class $Proxy0 implements ");
@@ -83,7 +103,9 @@ public class LYProxy {
                 stringBuffer.append("Method m = null;").append(LS);
                 stringBuffer.append("try {").append(LS);
                 stringBuffer.append("m = ").append(anInterface.getName()).append(".class.getMethod(\"").append
-                        (method.getName()).append("\",null);").append(LS);
+                        (method.getName()).append("\",").append("new Class[]{});")
+                        .append
+                        (LS);
                 stringBuffer.append("} catch (NoSuchMethodException e) {\n" +
                         "e.printStackTrace();\n" +
                         "}");
