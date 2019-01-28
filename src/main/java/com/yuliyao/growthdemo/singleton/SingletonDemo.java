@@ -4,7 +4,7 @@ package com.yuliyao.growthdemo.singleton;
  * @author yuliyao
  * @date 2019/1/26
  * 单例模式的经典写法
- * 单例模式的七种写法 https://cantellow.iteye.com/blog/838473
+ * 单例模式的七种写法 @see https://cantellow.iteye.com/blog/838473
  */
 public final class SingletonDemo {
 
