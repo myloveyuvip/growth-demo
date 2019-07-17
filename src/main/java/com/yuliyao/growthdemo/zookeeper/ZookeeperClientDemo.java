@@ -5,6 +5,7 @@ import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -98,20 +99,47 @@ public class ZookeeperClientDemo implements Watcher {
         getZooKeeper();
         Stat stat = new Stat();
         try {
-            byte[] data = this.getZooKeeper().getData(path, false, stat);
+            byte[] data = this.getZooKeeper().getData(path, true, stat);
             System.out.println("stat:" + JSON.toJSONString(stat));
+            System.in.read();
             return new String(data);
         } catch (KeeperException e) {
 
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return null;
     }
 
+    /**
+     * 获取子节点
+     * @param path
+     * @return
+     */
+    public List<String> getChildren(String path) {
+        getZooKeeper();
+        try {
+            List<String> children = this.zooKeeper.getChildren(path, true);
+            System.in.read();
+            return children;
+        } catch (KeeperException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
     @Override
     public void process(WatchedEvent watchedEvent) {
+        System.out.println("接收到事件："+JSON.toJSONString(watchedEvent));
         if (watchedEvent.getState() == Event.KeeperState.SyncConnected) {
             countDownLatch.countDown();
         }

@@ -1,7 +1,10 @@
 package com.yuliyao.growthdemo.zookeeper;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.zookeeper.CreateMode;
 import org.junit.Test;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -28,14 +31,21 @@ public class ZookeeperClientDemoTest {
     @Test
     public void set() {
         ZookeeperClientDemo zookeeperClientDemo = new ZookeeperClientDemo();
-        zookeeperClientDemo.setData(path, "修改1", 1);
+        zookeeperClientDemo.setData(path, "修改1", -1);
     }
 
     @Test
-    public void get() {
+    public void getData() {
         ZookeeperClientDemo zookeeperClientDemo = new ZookeeperClientDemo();
         System.out.println("节点值："+zookeeperClientDemo.getData(path));
 
+    }
+
+    @Test
+    public void getChildren() {
+        ZookeeperClientDemo demo = new ZookeeperClientDemo();
+        List<String> children = demo.getChildren(path);
+        System.out.println("子节点："+ JSON.toJSONString(children));
     }
 
     @Test
