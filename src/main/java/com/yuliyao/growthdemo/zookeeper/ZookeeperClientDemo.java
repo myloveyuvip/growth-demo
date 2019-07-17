@@ -1,6 +1,8 @@
 package com.yuliyao.growthdemo.zookeeper;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.zookeeper.*;
+import org.apache.zookeeper.data.Stat;
 
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
@@ -13,28 +15,99 @@ public class ZookeeperClientDemo implements Watcher {
 
     private ZooKeeper zooKeeper;
 
-    private CountDownLatch countDownLatch = new CountDownLatch(1);
+    private static CountDownLatch countDownLatch = new CountDownLatch(1);
 
-    {
+    /**
+     * 获取zk实例
+     * @return
+     */
+    private ZooKeeper getZooKeeper() {
         try {
-            zooKeeper = new ZooKeeper("127.0.0.1:2181", 3000, new ZookeeperClientDemo());
+            zooKeeper = new ZooKeeper("localhost:2181", 3000, new ZookeeperClientDemo());
+            System.out.println("zk state:"+zooKeeper.getState());
             countDownLatch.await();
+            return zooKeeper;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
-    public void create(String path, String data) {
+    /**
+     * 创建节点
+     * @param path
+     * @param data
+     * @param createMode
+     */
+    public void create(String path, String data,CreateMode createMode) {
         try {
-            System.out.println(zooKeeper.getState());
-            zooKeeper.create(path, data.getBytes(), null, null);
+            getZooKeeper();
+            String result = this.zooKeeper.create(path, data.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, createMode);
+            System.out.println("创建路径：" + result + " 成功！" );
+            System.in.read();
+        } catch (KeeperException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 删除节点
+     * @param path
+     * @param version
+     */
+    public void delete(String path,int version) {
+        getZooKeeper();
+        try {
+            this.getZooKeeper().delete(path, version);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (KeeperException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 设置值
+     * @param path
+     * @param data
+     * @param version
+     */
+    public void setData(String path,String data, int version) {
+        getZooKeeper();
+        try {
+            this.getZooKeeper().setData(path, data.getBytes(), version);
         } catch (KeeperException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+    }
+
+    /**
+     * 获取节点值
+     * @param path
+     */
+    public String  getData(String path) {
+        getZooKeeper();
+        Stat stat = new Stat();
+        try {
+            byte[] data = this.getZooKeeper().getData(path, false, stat);
+            System.out.println("stat:" + JSON.toJSONString(stat));
+            return new String(data);
+        } catch (KeeperException e) {
+
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -48,8 +121,10 @@ public class ZookeeperClientDemo implements Watcher {
     public static void main(String[] args) {
         try {
             ZooKeeper zooKeeper = new ZooKeeper("localhost:2181", 3000, new ZookeeperClientDemo());
+            countDownLatch.await();
             System.out.println(zooKeeper.getState());
-            zooKeeper.create("/zk-test", "foo".getBytes(), null, CreateMode.EPHEMERAL);
+            zooKeeper.create("/zk-test", "foo".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
+            System.in.read();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
