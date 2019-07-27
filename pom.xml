@@ -21,6 +21,8 @@
 
     <modules>
         <module>design-pattern</module>
+        <module>dubbo-api</module>
+        <module>dubbo-api</module>
     </modules>
 
 
