@@ -1,5 +1,7 @@
 package com.yuliyao.growthdemo.singleton;
 
+import com.yuliyao.growthdemo.singleton.SingletonDemo;
+
 /**
  * @author yuliyao
  * @date 2019/1/26

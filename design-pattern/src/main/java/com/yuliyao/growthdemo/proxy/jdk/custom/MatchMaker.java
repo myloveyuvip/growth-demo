@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
  * @author yuliyao
  * @date 2019/1/1
  */
-public class MatchMaker implements LYInvocationHandler{
+public class MatchMaker implements LYInvocationHandler {
 
     private Object target;
 
