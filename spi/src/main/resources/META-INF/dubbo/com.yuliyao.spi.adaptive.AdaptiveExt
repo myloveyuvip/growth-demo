@@ -1,0 +1,2 @@
+spring=com.yuliyao.spi.adaptive.SpringAdaptiveExtImpl
+springboot=com.yuliyao.spi.adaptive.SpringbootAdaptiveExtImpl
