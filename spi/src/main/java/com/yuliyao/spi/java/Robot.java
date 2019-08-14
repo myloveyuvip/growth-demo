@@ -7,7 +7,8 @@ import org.apache.dubbo.common.extension.SPI;
  * @date 2019/8/10
  */
 //SPI仅dubbo使用需要
-@SPI
+@SPI("bumblebee")
 public interface Robot {
+
     void sayHello();
 }

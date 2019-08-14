@@ -13,7 +13,7 @@ public class DubboSpiTest {
         Robot bumblebee = ExtensionLoader.getExtensionLoader(Robot.class).getExtension("bumblebee");
         bumblebee.sayHello();
         Robot defaultExtension = ExtensionLoader.getExtensionLoader(Robot.class).getDefaultExtension();
-        Robot adaptiveExtension = ExtensionLoader.getExtensionLoader(Robot.class).getAdaptiveExtension();
+        defaultExtension.sayHello();
         ExtensionLoader.getExtensionLoader(Robot.class).getLoadedExtensions();
     }
 
