@@ -22,7 +22,8 @@
     <modules>
         <module>design-pattern</module>
         <module>dubbo-api</module>
-        <module>dubbo-api</module>
+        <module>dubbo-client</module>
+        <module>dubbo-server</module>
         <module>spi</module>
     </modules>
 
