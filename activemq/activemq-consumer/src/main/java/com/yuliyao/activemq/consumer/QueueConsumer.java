@@ -9,7 +9,7 @@ import javax.jms.*;
  * @author yuliyao
  * @date 2019/8/19
  */
-public class ActiveMQConsumer {
+public class QueueConsumer {
 
     public static void main(String[] args) {
 

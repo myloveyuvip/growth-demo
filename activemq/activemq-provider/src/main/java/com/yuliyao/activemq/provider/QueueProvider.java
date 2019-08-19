@@ -10,7 +10,7 @@ import javax.jms.*;
  * @author yuliyao
  * @date 2019/8/18
  */
-public class ActiveMQProvider {
+public class QueueProvider {
 
     public static void main(String[] args) throws JMSException {
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
