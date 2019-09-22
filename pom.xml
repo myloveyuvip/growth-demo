@@ -26,6 +26,7 @@
         <module>dubbo-server</module>
         <module>spi</module>
         <module>activemq</module>
+        <module>elasticsearch</module>
     </modules>
 
 
