@@ -27,6 +27,8 @@
         <module>spi</module>
         <module>activemq</module>
         <module>elasticsearch</module>
+        <module>test</module>
+        <module>mathematics</module>
     </modules>
 
 

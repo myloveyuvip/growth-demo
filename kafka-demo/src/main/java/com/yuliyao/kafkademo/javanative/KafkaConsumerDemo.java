@@ -24,7 +24,7 @@ public class KafkaConsumerDemo {
         properties.setProperty(ConsumerConfig.CLIENT_ID_CONFIG, "consumerClient");
         properties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         properties.setProperty(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "1000");
-        properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "10.0.0.58:9082,10.0.0.59:9082,10.0.0.60:9082");
         properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "consumerGroup2");
         properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.IntegerDeserializer");
         properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
@@ -40,9 +40,8 @@ public class KafkaConsumerDemo {
 
     }
 
-
     public static void main(String[] args) {
-        KafkaConsumerDemo kafkaConsumerDemo = new KafkaConsumerDemo("test-topic");
+        KafkaConsumerDemo kafkaConsumerDemo = new KafkaConsumerDemo("test");
         while (true) {
             kafkaConsumerDemo.poll();
         }

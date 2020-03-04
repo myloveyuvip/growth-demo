@@ -7,7 +7,6 @@
         <artifactId>growth-demo</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>com.yuliyao</groupId>
     <artifactId>kafka-demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>kafka-demo</name>

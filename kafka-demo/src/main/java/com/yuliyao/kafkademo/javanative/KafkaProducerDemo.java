@@ -20,7 +20,7 @@ public class KafkaProducerDemo {
     public KafkaProducerDemo(String topic) {
         this.topic = topic;
         Properties properties = new Properties();
-        properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "10.0.0.58:9082,10.0.0.59:9082,10.0.0.60:9082");
         properties.setProperty(ProducerConfig.ACKS_CONFIG, "-1");
         properties.setProperty(ProducerConfig.CLIENT_ID_CONFIG, "ProducerClient");
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.IntegerSerializer");
@@ -29,8 +29,8 @@ public class KafkaProducerDemo {
     }
 
     public void sent() {
-        for (int i = 0; i < 50; i++) {
-            ProducerRecord producerRecord = new ProducerRecord(topic, i, "message" + i);
+        for (int i = 0; i < 50000000; i++) {
+            ProducerRecord producerRecord = new ProducerRecord(topic, null, "message" + i);
             try {
                 Object o = kafkaProducer.send(producerRecord).get();
                 System.out.println("发送消息：" + o);
@@ -43,7 +43,7 @@ public class KafkaProducerDemo {
     }
 
     public static void main(String[] args) {
-        KafkaProducerDemo kafkaProducerDemo = new KafkaProducerDemo("test-topic");
+        KafkaProducerDemo kafkaProducerDemo = new KafkaProducerDemo("test-part");
         kafkaProducerDemo.sent();
     }
 }

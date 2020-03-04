@@ -17,7 +17,7 @@ public class kafkaController {
     @Autowired
     private KafkaTemplate kafkaTemplate;
 
-    private String topic = "test-topic";
+    private String topic = "test";
 
     @GetMapping("send")
     public String send(String msg) {
