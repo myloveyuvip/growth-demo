@@ -41,6 +41,10 @@ public class Binary {
         return bigInteger.toString();
     }
 
+    public static void leftSwift(int demical) {
+        System.out.println(demical << 1);
+    }
+
 
     public static void main(String[] args) {
         int decimalSource = 10;
@@ -51,6 +55,17 @@ public class Binary {
         String decimalTarget = binaryToDecimal(binarySource);
         System.out.println(binarySource + "转换十进制后为：" + decimalTarget);
 
+        leftSwift(10);
+        System.out.println(10>>2);
+        System.out.println(10>>>2);
+        //逻辑右移
+        System.out.println(-10 >>> 2);
+        //算术右移
+        System.out.println(-10>>2);
+
+        System.out.println(10 & 3);
+        System.out.println(10 | 3);
+        System.out.println(10 ^ 3);
 
     }
 }

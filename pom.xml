@@ -26,9 +26,11 @@
         <module>dubbo-server</module>
         <module>spi</module>
         <module>activemq</module>
-        <module>elasticsearch</module>
-        <module>test</module>
         <module>mathematics</module>
+        <module>spring-mvc-demo</module>
+        <module>spring-mvc-source1</module>
+        <module>spring-mvc-s</module>
+        <module>spring-mvc-debug</module>
     </modules>
 
 

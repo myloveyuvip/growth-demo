@@ -22,7 +22,7 @@ public class ProxyMain {
 
         //把代理类输出到文件中，查看代理类
         byte[] bytes = ProxyGenerator.generateProxyClass("$Proxy0", new Class[]{IPerson.class});
-        try (FileOutputStream fos = new FileOutputStream("$Proxy0.class")){
+        try (FileOutputStream fos = new FileOutputStream("E:\\$Proxy0.class")){
             fos.write(bytes);
             fos.flush();
         } catch (FileNotFoundException e) {

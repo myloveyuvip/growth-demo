@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class KafkaConsumer {
 
-    @KafkaListener(topics = {"test"})
+    @KafkaListener(topics = {"SDK_filebeat_app_logs"})
     public void consumer(String message) {
         log.info("接收到消息：" + message);
     }
